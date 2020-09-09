@@ -11,6 +11,10 @@ $main-color: rgb(212, 209, 209);
   padding: 30px;
   background-color: #416380;
 
+  @media screen and(max-width:1020px) {
+    width: 100%;
+  };
+
   h2 {
     color: $main-color;
   }
