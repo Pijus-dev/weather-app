@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 
 import styles from "./weather-section.module.scss";
+import { popularCities } from "../../mockData";
 
 import { getWeatherData } from "../../redux/weather/weather.actions";
 import { connect } from "react-redux";
 
-const WeatherSection = ({ getWeatherData, data }) => {
+const WeatherSection = ({ getWeatherData, info }) => {
+  const { data } = info;
   const [city, setCity] = useState("");
-  const [isloading, setLoading] = useState(true);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     getWeatherData(city);
-    setCity("");
+
+    setCity(" ");
   };
 
   const renderData = () => {
@@ -55,11 +56,17 @@ const WeatherSection = ({ getWeatherData, data }) => {
       </form>
       <h2>Popular Locations</h2>
       <ul>
-        <li onClick={() => getWeatherData("New York")}>New York</li>
-        <li onClick={() => getWeatherData("London")}>London</li>
-        <li onClick={() => getWeatherData("Vilnius")}>Vilnius</li>
-        <li onClick={() => getWeatherData("Barcelona")}>Barcelona</li>
-        <li onClick={() => getWeatherData("Rome")}>Rome</li>
+        {popularCities.name.map((city) => {
+          return (
+            <li
+              key={city}
+              className={styles.cities}
+              onClick={() => getWeatherData(city)}
+            >
+              {city}
+            </li>
+          );
+        })}
       </ul>
       <div className={styles.line}></div>
       <h3>Weather Details</h3>
@@ -74,7 +81,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => {
   return {
-    data: state.weather,
+    info: state.weatherInfo,
   };
 };
 

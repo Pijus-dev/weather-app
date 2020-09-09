@@ -64,11 +64,30 @@ $main-color: rgb(212, 209, 209);
     list-style-type: none;
     padding: 0;
 
-    li {
+    .cities {
       margin-top: 20px;
       color: $main-color;
       font-size: 1.12rem;
       cursor: pointer;
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: 13%;
+        height: 2px;
+        bottom: 0px;
+        left: 0;
+        background-color: white;
+        visibility: hidden;
+        transform: scaleX(0);
+        transition: all 0.7s ease-in-out;
+      }
+
+      &:hover::before {
+        visibility: visible;
+        transform: scaleX(1);
+      }
     }
   }
 
@@ -88,6 +107,7 @@ $main-color: rgb(212, 209, 209);
         display: flex;
         justify-content: space-between;
         margin-top: 10px;
+        color: $main-color;
 
         &:first-child {
           color: $main-color;
