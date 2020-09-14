@@ -14,10 +14,11 @@ export const getWeatherData = (city) => async (dispatch) => {
   const query = city;
   const res = await client.photos.search({ query, per_page: 1 });
   const [src] = res.photos;
+ 
+  const image = src.src.original;
 
   dispatch({
     type: weatherTypes.FETCH_DATA,
-    payload: { data: data, image: src.src.original },
+    payload: { data: data, image },
   });
 };
-

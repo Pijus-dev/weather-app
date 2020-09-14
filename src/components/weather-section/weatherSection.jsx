@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import styles from "./weather-section.module.scss";
 import { popularCities } from "../../mockData";
@@ -9,12 +9,36 @@ import { connect } from "react-redux";
 const WeatherSection = ({ getWeatherData, info }) => {
   const { data } = info;
   const [city, setCity] = useState("");
+  const [capitals, setCapitals] = useState([]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     getWeatherData(city);
 
-    setCity(" ");
+    setCity("");
   };
+
+  const fetchCapitals = async () => {
+    const response = await fetch(
+      "https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-capital-city.json"
+    );
+
+    const data = await response.json();
+    const array = [];
+
+    data.forEach((item) => {
+      array.push(item.city);
+    });
+    setCapitals(array.filter((item) => item !== null));
+  };
+
+  const shuffle = (a, b) => {
+    return 0.5 - Math.random();
+  };
+
+  useEffect(() => {
+    fetchCapitals();
+  }, []);
 
   const renderData = () => {
     if (data && data.wind) {
@@ -56,17 +80,20 @@ const WeatherSection = ({ getWeatherData, info }) => {
       </form>
       <h2>Popular Locations</h2>
       <ul>
-        {popularCities.name.map((city) => {
-          return (
-            <li
-              key={city}
-              className={styles.cities}
-              onClick={() => getWeatherData(city)}
-            >
-              {city}
-            </li>
-          );
-        })}
+        {capitals
+          .sort(shuffle)
+          .splice(0, 4)
+          .map((city) => {
+            return (
+              <li
+                key={city}
+                className={styles.cities}
+                onClick={() => getWeatherData(city)}
+              >
+                {city}
+              </li>
+            );
+          })}
       </ul>
       <div className={styles.line}></div>
       <h3>Weather Details</h3>
