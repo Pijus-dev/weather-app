@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import styles from "./weather-section.module.scss";
-import { popularCities } from "../../mockData";
 
 import { getWeatherData } from "../../redux/weather/weather.actions";
 import { connect } from "react-redux";
@@ -73,7 +72,7 @@ const WeatherSection = ({ getWeatherData, info }) => {
           <input
             type="text"
             className={styles.formInput}
-            onChange={(e) => setCity(e.target.value)}
+            onChange={(e) => setCity(e.target.value.trim())}
           />
           <label className={styles.formLabel}>another location</label>
         </div>

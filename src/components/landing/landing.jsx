@@ -47,11 +47,7 @@ const Landing = ({ info }) => {
       style={
         data
           ? {
-              backgroundImage: `url(${
-                typeof info.image === undefined
-                  ? "https://images.unsplash.com/photo-1498496294664-d9372eb521f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
-                  : info.image
-              })`,
+              backgroundImage: `url(${info.image})`,
             }
           : {
               backgroundImage:
