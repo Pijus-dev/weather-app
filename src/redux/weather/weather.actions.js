@@ -4,7 +4,7 @@ import { createClient } from "pexels";
 
 export const getWeatherData = (city) => async (dispatch) => {
   const response = await fetch(
-    `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=b67030ed298fa43272794609817614f7`
+    `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=b67030ed298fa43272794609817614f7`
   );
   const data = await response.json();
   let image;

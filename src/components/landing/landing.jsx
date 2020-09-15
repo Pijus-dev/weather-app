@@ -25,7 +25,7 @@ const Landing = ({ info }) => {
 
       return (
         <div className={styles.weatherInfo}>
-          <h1>{temp.toFixed(2)}°C</h1>
+          <h1>{temp.toFixed(1)}°C</h1>
           <div className={styles.city}>
             <h2>{data.name}</h2>
             <div className={styles.extraInfo}>

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import styles from "./weather-section.module.scss";
 
+import PopularCities from "../popular-cities/popularCities";
 import { getWeatherData } from "../../redux/weather/weather.actions";
 import { connect } from "react-redux";
 
@@ -84,13 +85,11 @@ const WeatherSection = ({ getWeatherData, info }) => {
           .splice(0, 4)
           .map((city) => {
             return (
-              <li
+              <PopularCities
+                handleChange={() => getWeatherData(city)}
+                city={city}
                 key={city}
-                className={styles.cities}
-                onClick={() => getWeatherData(city)}
-              >
-                {city}
-              </li>
+              />
             );
           })}
       </ul>
