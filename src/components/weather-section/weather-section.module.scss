@@ -13,7 +13,7 @@ $main-color: rgb(212, 209, 209);
 
   @media screen and(max-width:1020px) {
     width: 100%;
-  };
+  }
 
   h2 {
     color: $main-color;
@@ -62,6 +62,30 @@ $main-color: rgb(212, 209, 209);
       &.shrink {
         @include shrinkLabel();
       }
+    }
+
+    .autocompleteDropdownContainer {
+      background-color: #9dbad6;
+      border-radius: 6px;
+
+      .suggestion {
+        padding: 8px;
+
+        span {
+          color: white;
+          font-weight: 400;
+          cursor: pointer;
+        }
+      }
+    }
+    button {
+      padding: 6px 25px;
+      border-radius: 6px;
+      background-color: #8ec0f0;
+      border: none;
+      color: white;
+      cursor: pointer;
+      margin-top: 10px;
     }
   }
   ul {

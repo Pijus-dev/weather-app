@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 import styles from "./weather-section.module.scss";
 
@@ -6,13 +6,17 @@ import PopularCities from "../popular-cities/popularCities";
 import { getWeatherData } from "../../redux/weather/weather.actions";
 import { connect } from "react-redux";
 
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-places-autocomplete";
+
 const WeatherSection = ({ getWeatherData, info }) => {
   const { data } = info;
   const [city, setCity] = useState("");
   const [capitals, setCapitals] = useState([]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     getWeatherData(city);
 
     setCity("");
@@ -66,18 +70,44 @@ const WeatherSection = ({ getWeatherData, info }) => {
     }
   };
 
+  const renderFunc = ({
+    getInputProps,
+    getSuggestionItemProps,
+    suggestions,
+    loading,
+  }) => (
+    <div className="autocomplete-root">
+      <input {...getInputProps()} className={styles.formInput} />
+      <div className={styles.autocompleteDropdownContainer}>
+        {loading && <div>Loading...</div>}
+        {suggestions.map((suggestion, idx) => (
+          <div
+            key={idx}
+            {...getSuggestionItemProps(suggestion)}
+            className={styles.suggestion}
+          >
+            <span>{suggestion.description}</span>
+          </div>
+        ))}
+      </div>
+      <label className={styles.formLabel}>another location</label>
+    </div>
+  );
+
   return (
     <div className={styles.weatherSection}>
-      <form onSubmit={handleSubmit}>
-        <div className={styles.group}>
-          <input
+      <div className={styles.group}>
+        {/* <input
             type="text"
             className={styles.formInput}
             onChange={(e) => setCity(e.target.value.trim())}
-          />
-          <label className={styles.formLabel}>another location</label>
-        </div>
-      </form>
+          /> */}
+
+        <PlacesAutocomplete value={city} onChange={(value) => setCity(value)}>
+          {renderFunc}
+        </PlacesAutocomplete>
+        <button onClick={handleSubmit}>Submit</button>
+      </div>
       <h2>Popular Locations</h2>
       <ul>
         {capitals

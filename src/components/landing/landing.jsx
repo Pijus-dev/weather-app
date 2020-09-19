@@ -3,7 +3,9 @@ import React from "react";
 import styles from "./landing.module.scss";
 import { connect } from "react-redux";
 
-const Landing = ({ info }) => {
+import { withRouter } from "react-router-dom";
+
+const Landing = ({ info, history }) => {
   const { data } = info;
 
   const calcTime = (offset) => {
@@ -27,7 +29,9 @@ const Landing = ({ info }) => {
         <div className={styles.weatherInfo}>
           <h1>{temp.toFixed(1)}°C</h1>
           <div className={styles.city}>
-            <h2>{data.name}</h2>
+            <h2 onClick={() => history.push("/city/" + data.name)}>
+              {data.name}
+            </h2>
             <div className={styles.extraInfo}>
               <h4>{calcTime(utcTime)}</h4>
             </div>
@@ -66,4 +70,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Landing);
+export default connect(mapStateToProps)(withRouter(Landing));

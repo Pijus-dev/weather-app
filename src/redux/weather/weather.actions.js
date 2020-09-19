@@ -24,6 +24,7 @@ export const getWeatherData = (city) => async (dispatch) => {
 
   dispatch({
     type: weatherTypes.FETCH_DATA,
-    payload: { data: data, image },
+    payload: { data, image },
   });
 };
+
