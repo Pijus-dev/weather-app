@@ -6,10 +6,7 @@ import PopularCities from "../popular-cities/popularCities";
 import { getWeatherData } from "../../redux/weather/weather.actions";
 import { connect } from "react-redux";
 
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from "react-places-autocomplete";
+import PlacesAutocomplete from "react-places-autocomplete";
 
 const WeatherSection = ({ getWeatherData, info }) => {
   const { data } = info;
